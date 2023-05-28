@@ -2,26 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	padding: 0;
+	margin: 0;
+	font-weight: 500;
+	font-family: var(--quicksand-font);
+}
+
+::-webkit-scrollbar {
+	width: 9px;
+	height: 9px;
+	overflow: visible;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #f2f2f28c;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+	margin: 15px 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+h1 {
+	font-family: var(--alumniSans-font);
+}
+
+.btn {
+	font-family: var(--alumniSans-font);
+}
+
+.main {
+	background-image: url('/image/bg-desktop.jpg');
+	max-height: -webkit-fill-available;
+}
+
+.app {
+	background-image: url('/image/bg-app.png');
+}
+
+@media only screen and (max-width: 600px) {
+	.main {
+		background-image: url('/image/bg.jpg');
+	}
+}
+
+@layer components {
+	.input-default {
+		@apply text-gray-700 border-gray-300 focus: text-gray-700 m-0 block w-full rounded border border-solid bg-white bg-clip-padding px-3 py-1.5 text-base font-normal transition ease-in-out focus:border-blue-600 focus:bg-white focus:outline-none;
+	}
+}
+
+@layer base {
+	.center {
+		@apply flex items-center justify-center;
+	}
+
+	.row {
+		@apply flex flex-row items-center;
+	}
+
+	.col {
+		@apply flex flex-col;
+	}
+
+	.row-center {
+		@apply flex flex-row items-center justify-center;
+	}
+
+	.row-between {
+		@apply flex flex-row items-center justify-between;
+	}
+
+	.animation {
+		@apply transition-all duration-300 ease-linear;
+	}
+
+	.bg-gradient-default {
+		@apply bg-gradient-to-b from-[#2ADDC8] to-[#00B09B];
+	}
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+	height: 0px;
+	width: 0px;
+	opacity: 0;
+}
+
+.scrollbar-sm::-webkit-scrollbar {
+	height: 2px;
+	width: 2px;
+	opacity: 0;
+}
+
+.scrollbar-md::-webkit-scrollbar {
+	height: 6px;
+	width: 6px;
+	opacity: 0;
+}
+
+.scrollbar-sm::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+.scrollbar-sm:hover::-webkit-scrollbar-thumb {
+	display: block;
+}
+
+.scrollbar-md::-webkit-scrollbar-thumb {
+	display: none;
+}
+
+.scrollbar-md:hover::-webkit-scrollbar-thumb {
+	display: block;
 }
