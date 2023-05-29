@@ -1,6 +1,9 @@
 import { ServiceApi } from '@/services';
+import { socket } from '@/services/socket';
+import { ProfileSelectors } from '@/store';
 import { isSuccess } from '@/utils';
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Button, Card, Form, Input, message } from 'antd';
 import { useRouter } from 'next/router';
@@ -8,6 +11,7 @@ import { useRouter } from 'next/router';
 export default function SharePage() {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+	const profile = useSelector(ProfileSelectors.selectProfile);
 	const onFinish = async (values: { videoUrl: string }) => {
 		setLoading(true);
 
@@ -21,6 +25,10 @@ export default function SharePage() {
 				cover: metadata?.images?.[0],
 			});
 			if (isSuccess(res)) {
+				socket.emit(
+					'chat message',
+					JSON.stringify({ ...res?.data, email: profile.email })
+				);
 				message.success('Share movie successful');
 				router.replace('/');
 			}

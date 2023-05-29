@@ -32,6 +32,7 @@ const AuthModal: React.FC<{}> = () => {
 		<Modal
 			open={isShowAuthModal}
 			title={isLogin ? 'Login' : 'Register'}
+			onCancel={onClose}
 			footer={[]}
 		>
 			<Form

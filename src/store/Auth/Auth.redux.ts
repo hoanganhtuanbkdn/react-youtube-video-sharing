@@ -3,6 +3,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from '..';
 
+import { NextRouter } from 'next/router';
+
 const initialState: IAuthState = {
 	fetching: false,
 	token: null,
@@ -84,7 +86,10 @@ const authSlice = createSlice({
 				fetching: false,
 			};
 		},
-		logoutRequest: (state: IAuthState) => {
+		logoutRequest: (
+			state: IAuthState,
+			action: PayloadAction<NextRouter>
+		) => {
 			return {
 				...state,
 				logged: false,

@@ -1,11 +1,63 @@
-import { GlobalDispatch, ProfileActions } from '@/store';
-import React, { ReactNode, useEffect } from 'react';
+import { socket } from '@/services/socket';
+import { GlobalDispatch, ProfileActions, ProfileSelectors } from '@/store';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Header from '../Header';
 
+import { notification } from 'antd';
+import { useRouter } from 'next/router';
+import { split } from 'ramda';
+
 const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+	const [isConnected, setIsConnected] = useState(socket.connected);
+
+	const profile = useSelector(ProfileSelectors.selectProfile);
+
+	const router = useRouter();
+
+	function onConnect() {
+		setIsConnected(true);
+	}
+
+	function onDisconnect() {
+		setIsConnected(false);
+	}
+
+	function onNewMessages(value: any) {
+		if (!profile.email) return;
+		try {
+			const raw = split('{', value);
+
+			const message = JSON.parse(`{${raw?.[1]}`);
+
+			if (profile.email === message?.email) return;
+
+			notification.open({
+				message: `${message?.email} shared a movie`,
+				description: message?.title,
+				onClick: () => {
+					router.replace('/');
+				},
+			});
+		} catch (e) {}
+	}
+
 	useEffect(() => {
 		GlobalDispatch(ProfileActions.getProfileRequest());
+		socket.on('connect', onConnect);
+		socket.on('disconnect', onDisconnect);
+		socket.on('chat message', onNewMessages);
+		socket.on('some room event', function (msg) {
+			console.log('msg', msg);
+		});
+
+		return () => {
+			socket.off('connect', onConnect);
+			socket.off('disconnect', onDisconnect);
+			socket.off('chat message');
+			socket.off('some room event');
+		};
 	}, []);
 
 	return (

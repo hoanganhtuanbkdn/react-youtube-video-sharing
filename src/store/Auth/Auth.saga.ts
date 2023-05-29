@@ -7,11 +7,13 @@ import { ProfileActions } from '../Profile';
 import { AuthActions } from './Auth.redux';
 
 import { message } from 'antd';
+import { NextRouter } from 'next/router';
 import { all, put } from 'redux-saga/effects';
 
-export function* logout(): any {
+export function* logout(action: PayloadAction<NextRouter>): any {
 	yield put(ProfileActions.resetProfile());
 	deleteCookieAfterLogout();
+	action.payload?.replace('/');
 }
 export function* loginRequest(
 	action: PayloadAction<{ email: string; password: string }>

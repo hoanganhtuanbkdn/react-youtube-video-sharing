@@ -17,8 +17,6 @@ interface IVideoPlayerProps {
 const VideoPlayer = ({ cover, videoUrl, videoKey }: IVideoPlayerProps) => {
 	let listener = useRef<any>();
 
-	console.log(cover, videoUrl, videoKey);
-
 	const [playing, togglePlaying] = useToggle();
 
 	const play = useCallback(() => {
@@ -26,8 +24,6 @@ const VideoPlayer = ({ cover, videoUrl, videoKey }: IVideoPlayerProps) => {
 	}, []);
 
 	const onPlay = useCallback(() => {
-		console.log(11111, videoKey);
-
 		EventRegister.emit(EVENT_EMITTER_NAME.PLAY_VIDEO, videoKey);
 	}, [videoKey]);
 
@@ -39,8 +35,6 @@ const VideoPlayer = ({ cover, videoUrl, videoKey }: IVideoPlayerProps) => {
 		listener.current = EventRegister.addEventListener(
 			EVENT_EMITTER_NAME.PLAY_VIDEO,
 			(targetKey: number) => {
-				console.log(2222, targetKey);
-
 				if (targetKey !== videoKey) {
 					// videoRef.current?.pause();
 					togglePlaying(false);
@@ -93,6 +87,7 @@ const VideoPlayer = ({ cover, videoUrl, videoKey }: IVideoPlayerProps) => {
 				className={classNames('z-10')}
 				width="100%"
 				height="100%"
+				pip
 			/>
 		</div>
 	);

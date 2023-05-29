@@ -17,21 +17,26 @@ const Home = () => {
 	);
 
 	return (
-		<main className={'col gap-4 xl:my-10 xl:px-40'} id="list-sharing">
+		<main
+			className={'col my-3 gap-4 px-3 xl:my-10 xl:px-40'}
+			id="list-sharing"
+		>
 			{data?.map((item: ISharing) => (
 				<div
 					key={item.id}
-					className="flex h-[290px] flex-row overflow-hidden rounded-md border border-gray-300 shadow"
+					className="flex flex-col overflow-hidden rounded-md border border-gray-300 shadow md:h-[290px] md:flex-row"
 				>
-					<div className="relative flex w-[440px]">
+					<div className="relative flex h-[200px] w-full md:h-full md:w-[440px]">
 						<VideoPlayer
 							videoUrl={item.videoUrl}
 							cover={item.cover || ''}
 							videoKey={item.id!}
 						/>
 					</div>
-					<div className="col flex-1 items-start justify-start gap-3 px-5 py-3">
-						<h1 className="!my-0">{item.title}</h1>
+					<div className="col flex-1 items-start justify-start gap-1 px-5 py-3 text-xs md:gap-3 md:text-base">
+						<h1 className="!my-0 text-xl md:text-2xl">
+							{item.title}
+						</h1>
 						<p className="!my-0">
 							<strong>Share by:</strong> {item.user?.email}
 						</p>
