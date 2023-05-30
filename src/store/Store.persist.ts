@@ -24,5 +24,5 @@ export const persistConfig = {
 	key: 'root',
 	version: 1,
 	storage,
-	whitelist: ['auth', 'general'],
+	whitelist: ['general'],
 };

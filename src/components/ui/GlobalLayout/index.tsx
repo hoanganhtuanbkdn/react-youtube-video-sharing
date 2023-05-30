@@ -16,15 +16,7 @@ const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 	const router = useRouter();
 
-	function onConnect() {
-		setIsConnected(true);
-	}
-
-	function onDisconnect() {
-		setIsConnected(false);
-	}
-
-	function onNewMessages(value: any) {
+	const onNewMessages = (value: any) => {
 		if (!profile.email) return;
 		try {
 			const raw = split('{', value);
@@ -40,14 +32,24 @@ const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 					router.replace('/');
 				},
 			});
-		} catch (e) {}
-	}
+		} catch (e) {
+			console.log(3, e);
+		}
+	};
 
 	useEffect(() => {
 		GlobalDispatch(ProfileActions.getProfileRequest());
+
+		function onConnect() {
+			setIsConnected(true);
+		}
+
+		function onDisconnect() {
+			setIsConnected(false);
+		}
+
 		socket.on('connect', onConnect);
 		socket.on('disconnect', onDisconnect);
-		socket.on('chat message', onNewMessages);
 		socket.on('some room event', function (msg) {
 			console.log('msg', msg);
 		});
@@ -60,9 +62,13 @@ const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		socket.on('chat message', onNewMessages);
+	}, [profile]);
+
 	return (
 		<main className={'col scrollbar-md min-h-screen w-screen'}>
-			<Header />
+			<Header isConnected={isConnected} />
 			<div className="container min-h-full">{children}</div>
 		</main>
 	);

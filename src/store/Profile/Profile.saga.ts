@@ -25,8 +25,11 @@ export function* getMyProfile(): Generator<unknown, void, { data: any }> {
 
 		const profile = yield ServiceApi.getUserMe();
 
+		console.log(4, profile);
+
 		if (isSuccess(profile)) {
-			yield all([put(ProfileActions.getProfileSuccess(profile?.data))]);
+			console.log(5, profile?.data);
+			yield put(ProfileActions.getProfileSuccess(profile?.data));
 		} else {
 			yield all([
 				put(ProfileActions.getProfileFailure()),

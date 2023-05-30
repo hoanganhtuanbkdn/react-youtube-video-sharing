@@ -7,10 +7,10 @@ import apisauce from 'apisauce';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
-// export const baseURL = process.env.NEXT_PUBLIC_API_URL;
-export const baseURL = isDev
-	? 'http://localhost:5000'
-	: process.env.NEXT_PUBLIC_API_URL;
+export const baseURL = process.env.NEXT_PUBLIC_API_URL;
+// export const baseURL = isDev
+// 	? 'http://localhost:5000'
+// 	: process.env.NEXT_PUBLIC_API_URL;
 
 export const defaultApiSauceConfig = (headers?: any) => {
 	return {

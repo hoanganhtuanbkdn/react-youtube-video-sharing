@@ -1,6 +1,7 @@
 import SmartLink from '@/components/SmartLink';
 import { ROUTERS } from '@/constant';
 import { AuthActions, GlobalDispatch, ProfileSelectors } from '@/store';
+import { classNames } from '@/utils';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
@@ -9,7 +10,7 @@ import AuthModal from '../AuthModal';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 
-export default function Header() {
+export default function Header({ isConnected }: { isConnected: boolean }) {
 	const profile = useSelector(ProfileSelectors.selectProfile);
 	const router = useRouter();
 	const onShowModal = (isRegister: boolean) => {
@@ -29,7 +30,9 @@ export default function Header() {
 		<div className=" sticky top-0 z-40 h-[90px] bg-white shadow">
 			<div className=" container ">
 				<div className="row-between px-3 md:px-0">
-					<h1>Funny Movie</h1>
+					<h1 className={classNames(isConnected && 'logo')}>
+						Funny Movie
+					</h1>
 					{profile?.id ? (
 						<div className="col md:row text-xs md:gap-4 md:text-base">
 							<p>Welcome {[profile?.email]}</p>
