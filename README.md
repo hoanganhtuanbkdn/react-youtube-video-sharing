@@ -34,6 +34,7 @@ To use the Funny website, you need the following:
 
 ## Directory Structure
 
+```
 ├── src/ # Directory containing the main source code of the project
 │ ├── components/ # Directory containing reusable React components
 │ ├── constants/ # Directory containing reusable React components
@@ -49,6 +50,7 @@ To use the Funny website, you need the following:
 ├── next.config.js # Next.js configuration file (Next.js specific)
 ├── tailwind.config.js # TailwindCss configuration file
 └── README.md # Project documentation and guide
+```
 
 ## Install
 
