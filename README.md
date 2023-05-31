@@ -16,7 +16,9 @@ Server Api: https://remitano-api.code4change.dev/explorer
 
 -   User profile management
 
--   Video sharing and viewing
+-   Video sharing management
+
+-   Videos sharing community
 
 -   Real-time notifications for new video uploads
 
@@ -34,7 +36,7 @@ To use the Funny website, you need the following:
 
 ## Directory Structure
 
-```
+```sh
 ├── src/ # Directory containing the main source code of the project
 │ ├── components/ # Directory containing reusable React components
 │ ├── constants/ # Directory containing reusable React components
@@ -56,25 +58,38 @@ To use the Funny website, you need the following:
 
 1. Clone the repository:
 
-`git clone https://github.com/hoanganhtuanbkdn/remitano-web.git`
+```sh
+git clone https://github.com/hoanganhtuanbkdn/remitano-web.git
+```
 
 2. Navigate to the project directory:
 
-`cd remitano-web`
+```sh
+cd remitano-web
+```
 
 3. Install project dependencies:
 
-`npm install`
+```sh
+npm install
+```
 
 4. Start the development server
 
-`npm run dev`
+```sh
+npm run dev`
+
+```
 
 -   Start the production server:
 
-`npm run build`
+```sh
+npm run build
+```
 
-`npm run start`
+```sh
+npm run start
+```
 
 Open your web browser and access the website at http://localhost:3000.
 
@@ -96,11 +111,27 @@ To deploy the Funny website using Docker, follow these steps:
 
 2. Build the Docker image:
 
-    `npm run docker:build` or `docker build -t funny-web .`
+```sh
+npm run docker:build
+```
+
+or
+
+```sh
+docker build -t funny-web .
+```
 
 3. Run the Docker container:
 
-`npm run docker:run` or `docker run -p 3000:3000 funny-web`
+```sh
+npm run docker:run
+```
+
+or
+
+```sh
+docker run -p 3000:3000 funny-web
+```
 
 4. Open your web browser and access the website at http://localhost:3000.
 
@@ -112,7 +143,9 @@ Make sure you have all the project dependencies installed.
 
 Run the unit tests command:
 
-`npm run test`
+```sh
+npm run test
+```
 
 The test suite will run, and you will see the test results and any failures or errors encountered.
 
@@ -122,15 +155,27 @@ The testing process helps maintain the quality and stability of the website. If 
 
 Clone the server repository
 
-`git clone https://github.com/hoanganhtuanbkdn/remitano-server`
+```sh
+git clone https://github.com/hoanganhtuanbkdn/remitano-server
+```
 
 Navigate to the project directory:
 
-`cd remitano-server`
+```sh
+cd remitano-server
+```
+
+Create a .env file based on the provided env.example file. This file will contain the environment variables required for the project.
+
+```sh
+cp env.example .env
+```
 
 Start the server with Docker
 
-`docker-compose build && docker-compose up -d` or `npm run docker:deploy`
+```sh
+docker-compose build && docker-compose up -d` or `npm run docker:deploy
+```
 
 Open your web browser and access the website at http://localhost:5000/explorer.
 
