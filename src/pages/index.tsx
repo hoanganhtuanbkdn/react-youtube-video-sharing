@@ -20,6 +20,7 @@ const Home = () => {
 		<main
 			className={'col my-3 gap-4 px-3 xl:my-10 xl:px-40'}
 			id="list-sharing"
+			data-testid="list-sharing"
 		>
 			{data?.map((item: ISharing) => (
 				<div

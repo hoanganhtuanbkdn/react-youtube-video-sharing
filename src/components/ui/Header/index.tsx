@@ -28,11 +28,13 @@ export default function Header({ isConnected }: { isConnected: boolean }) {
 
 	return (
 		<div className=" sticky top-0 z-40 h-[90px] bg-white shadow">
-			<div className=" container ">
+			<div className="container ">
 				<div className="row-between px-3 md:px-0">
-					<h1 className={classNames(isConnected && 'logo')}>
-						Funny Movie
-					</h1>
+					<SmartLink href="/">
+						<h1 className={classNames(isConnected && 'logo')}>
+							Funny Movie
+						</h1>
+					</SmartLink>
 					{profile?.id ? (
 						<div className="col md:row text-xs md:gap-4 md:text-base">
 							<p>Welcome {[profile?.email]}</p>

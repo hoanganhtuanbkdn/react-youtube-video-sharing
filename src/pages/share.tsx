@@ -1,3 +1,4 @@
+import ShareForm from '@/components/view/ShareForm';
 import { ServiceApi } from '@/services';
 import { socket } from '@/services/socket';
 import { ProfileSelectors } from '@/store';
@@ -5,7 +6,7 @@ import { isSuccess } from '@/utils';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Button, Card, Form, Input, message } from 'antd';
+import { message } from 'antd';
 import { useRouter } from 'next/router';
 
 export default function SharePage() {
@@ -52,39 +53,7 @@ export default function SharePage() {
 
 	return (
 		<div className="center fixed inset-0 ">
-			<Card title="Share a Youtube movie" className="w-[400px]">
-				<Form
-					name="basic"
-					labelCol={{ span: 8 }}
-					wrapperCol={{ span: 16 }}
-					initialValues={{ videoUrl: '' }}
-					onFinish={onFinish}
-					autoComplete="new-password"
-				>
-					<Form.Item
-						label="Youtube URL"
-						name="videoUrl"
-						rules={[
-							{
-								required: true,
-								message: 'Please input a Youtube url!',
-							},
-						]}
-					>
-						<Input autoComplete="off" />
-					</Form.Item>
-
-					<div className="row w-full justify-end gap-5">
-						<Button
-							type="primary"
-							htmlType="submit"
-							loading={loading}
-						>
-							Share
-						</Button>
-					</div>
-				</Form>
-			</Card>
+			<ShareForm loading={loading} onFinish={onFinish} />
 		</div>
 	);
 }
