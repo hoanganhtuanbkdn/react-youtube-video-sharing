@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders Home Page 1`] = `
+<main
+  class="col my-3 gap-4 px-3 xl:my-10 xl:px-40"
+  data-testid="list-sharing"
+  id="list-sharing"
+/>
+`;

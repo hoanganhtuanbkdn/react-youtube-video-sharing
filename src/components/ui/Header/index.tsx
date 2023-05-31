@@ -10,7 +10,13 @@ import AuthModal from '../AuthModal';
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
 
-export default function Header({ isConnected }: { isConnected: boolean }) {
+export default function Header({
+	isConnected,
+	isProfile,
+}: {
+	isConnected: boolean;
+	isProfile?: boolean;
+}) {
 	const profile = useSelector(ProfileSelectors.selectProfile);
 	const router = useRouter();
 	const onShowModal = (isRegister: boolean) => {
@@ -35,16 +41,23 @@ export default function Header({ isConnected }: { isConnected: boolean }) {
 							Funny Movie
 						</h1>
 					</SmartLink>
-					{profile?.id ? (
+					{profile?.id || isProfile ? (
 						<div className="col md:row text-xs md:gap-4 md:text-base">
 							<p>Welcome {[profile?.email]}</p>
 							<div className="row nd:gap-4 gap-2">
-								<SmartLink href={ROUTERS.SHARE}>
-									<Button type="primary">
-										Share a movie
-									</Button>
-								</SmartLink>
-								<Button onClick={onLogout}>Logout</Button>
+								<Button
+									type="primary"
+									onClick={() => router.push(ROUTERS.SHARE)}
+									data-testid="shareBtn"
+								>
+									Share a movie
+								</Button>
+								<Button
+									onClick={onLogout}
+									data-testid="logoutBtn"
+								>
+									Logout
+								</Button>
 							</div>
 						</div>
 					) : (
@@ -52,10 +65,14 @@ export default function Header({ isConnected }: { isConnected: boolean }) {
 							<Button
 								type="primary"
 								onClick={() => onShowModal(false)}
+								data-testid="loginBtn"
 							>
 								Login
 							</Button>
-							<Button onClick={() => onShowModal(true)}>
+							<Button
+								onClick={() => onShowModal(true)}
+								data-testid="registerBtn"
+							>
 								Register
 							</Button>
 							<AuthModal />

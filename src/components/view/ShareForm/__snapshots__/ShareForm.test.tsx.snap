@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering and submitting share form renders ShareForm correctly 1`] = `
+<form
+  autocomplete="new-password"
+  class="ant-form ant-form-horizontal css-dev-only-do-not-override-w8mnev"
+  id="basic"
+>
+  <div
+    class="ant-form-item css-dev-only-do-not-override-w8mnev"
+  >
+    <div
+      class="ant-row ant-form-item-row css-dev-only-do-not-override-w8mnev"
+    >
+      <div
+        class="ant-col ant-col-8 ant-form-item-label css-dev-only-do-not-override-w8mnev"
+      >
+        <label
+          class="ant-form-item-required"
+          for="basic_videoUrl"
+          title="Youtube URL"
+        >
+          Youtube URL
+        </label>
+      </div>
+      <div
+        class="ant-col ant-col-16 ant-form-item-control css-dev-only-do-not-override-w8mnev"
+      >
+        <div
+          class="ant-form-item-control-input"
+        >
+          <div
+            class="ant-form-item-control-input-content"
+          >
+            <input
+              aria-required="true"
+              autocomplete="off"
+              class="ant-input css-dev-only-do-not-override-w8mnev"
+              data-testid="videoUrl"
+              id="videoUrl"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row w-full justify-end gap-5"
+  >
+    <button
+      class="ant-btn css-dev-only-do-not-override-w8mnev ant-btn-primary submitShareBtn"
+      data-testid="submitShareBtn"
+      type="submit"
+    >
+      <span>
+        Share
+      </span>
+    </button>
+  </div>
+</form>
+`;

@@ -124,8 +124,6 @@ describe('API Testing', () => {
 			);
 
 			expect(res4.status).toBe(204);
-		} catch (error: any) {
-			console.log('createSharingError', error.response);
-		}
+		} catch (error: any) {}
 	});
 });

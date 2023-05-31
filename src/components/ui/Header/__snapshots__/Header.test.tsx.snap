@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`next-router-mock renders Header correctly 1`] = `
+<div
+  class=" sticky top-0 z-40 h-[90px] bg-white shadow"
+>
+  <div
+    class="container "
+  >
+    <div
+      class="row-between px-3 md:px-0"
+    >
+      <a
+        href="/"
+      >
+        <h1
+          class="logo"
+        >
+          Funny Movie
+        </h1>
+      </a>
+      <div
+        class="col md:row text-xs md:gap-4 md:text-base"
+      >
+        <p>
+          Welcome 
+        </p>
+        <div
+          class="row nd:gap-4 gap-2"
+        >
+          <button
+            class="ant-btn css-dev-only-do-not-override-w8mnev ant-btn-primary"
+            data-testid="shareBtn"
+            type="button"
+          >
+            <span>
+              Share a movie
+            </span>
+          </button>
+          <button
+            class="ant-btn css-dev-only-do-not-override-w8mnev ant-btn-default"
+            data-testid="logoutBtn"
+            type="button"
+          >
+            <span>
+              Logout
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
