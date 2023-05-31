@@ -85,7 +85,7 @@ describe('API Testing', () => {
 			});
 
 			const token = res1.data.token;
-			const url = 'https://www.youtube.com/watch?v=eUoqFu1sgRw';
+			const url = 'https://www.youtube.com/watch?v=qgb-bdEEI-M&t=65s';
 
 			// get url's metadata
 			const res2 = await axios.get(
@@ -115,10 +115,17 @@ describe('API Testing', () => {
 
 			// delete newly created sharing
 			const res4 = await axios.delete(
-				`${baseURL}/sharings/${res2.data.id}`
+				`${baseURL}/sharings/${res3.data.id}`,
+				{
+					headers: {
+						authorization: 'Bearer ' + token,
+					},
+				}
 			);
 
 			expect(res4.status).toBe(204);
-		} catch (error: any) {}
+		} catch (error: any) {
+			console.log('createSharingError', error.response);
+		}
 	});
 });
