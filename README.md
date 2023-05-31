@@ -4,8 +4,10 @@
 
 The Funny App is a platform where users can share and view videos shared by other community members. The website allows users to share YouTube links with the community and receive notifications when new videos are shared.
 
-Demo:
+### Demo
+
 Web App: https://remitano-web-gamma.vercel.app/
+
 Server Api: https://remitano-api.code4change.dev/explorer
 
 ## Key features of the Funny App include:
@@ -20,7 +22,7 @@ Server Api: https://remitano-api.code4change.dev/explorer
 
 ## Prerequisites
 
-To use the Video Sharing Community website, you need the following:
+To use the Funny website, you need the following:
 
 -   Web browser (Chrome, Firefox, Safari, etc.)
 
@@ -28,7 +30,25 @@ To use the Video Sharing Community website, you need the following:
 
 -   Installation & Configuration
 
--   To set up the Video Sharing Community website locally, follow these steps:
+-   To set up the Funny website locally, follow these steps:
+
+## Directory Structure
+
+├── src/ # Directory containing the main source code of the project
+│ ├── components/ # Directory containing reusable React components
+│ ├── constants/ # Directory containing reusable React components
+│ ├── hooks/ # Directory containing custom React hooks
+│ ├── pages/ # Directory containing the pages of the application (Next.js specific)
+│ ├── utils/ # Directory containing utility functions
+│ ├── styles/ # Directory containing CSS or SCSS files
+│ ├── services/ # Directory containing other services related to the project ( API, Socket )
+├── public/ # Directory containing static assets such as images, favicon, etc.
+├── tests/ # Directory containing test files
+├── .gitignore # File specifying the list of files/directories to be ignored during commit
+├── package.json # File defining project dependencies and scripts
+├── next.config.js # Next.js configuration file (Next.js specific)
+├── tailwind.config.js # TailwindCss configuration file
+└── README.md # Project documentation and guide
 
 ## Install
 
@@ -48,7 +68,7 @@ To use the Video Sharing Community website, you need the following:
 
 `npm run dev`
 
-5. Start the production server:
+-   Start the production server:
 
 `npm run build`
 
@@ -74,15 +94,15 @@ To deploy the Funny website using Docker, follow these steps:
 
 2. Build the Docker image:
 
-    `npm docker:build` or `docker build -t funny-web .`
+    `npm run docker:build` or `docker build -t funny-web .`
 
 3. Run the Docker container:
 
-`npm docker:run` or `docker run -p 3000:3000 funny-web`
+`npm run docker:run` or `docker run -p 3000:3000 funny-web`
 
 4. Open your web browser and access the website at http://localhost:3000.
 
-Testing
+## Testing
 
 The Funny website includes a comprehensive testing suite to ensure its functionality and reliability. To run the unit tests, follow these steps:
 
@@ -90,7 +110,7 @@ Make sure you have all the project dependencies installed.
 
 Run the unit tests command:
 
-`npm test`
+`npm run test`
 
 The test suite will run, and you will see the test results and any failures or errors encountered.
 

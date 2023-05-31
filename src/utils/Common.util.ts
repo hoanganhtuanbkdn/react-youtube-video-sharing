@@ -1,4 +1,4 @@
-import { ROUTERS } from '@/constant';
+import { ROUTERS } from '@/constants';
 
 import CryptoJS from 'crypto-js';
 import moment from 'moment';

@@ -1,5 +1,5 @@
 import SmartLink from '@/components/SmartLink';
-import { ROUTERS } from '@/constant';
+import { ROUTERS } from '@/constants';
 import { AuthActions, GlobalDispatch, ProfileSelectors } from '@/store';
 import { classNames } from '@/utils';
 import React from 'react';
