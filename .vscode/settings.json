@@ -4,5 +4,12 @@
 		"source.fixAll.eslint": true
 	},
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"cSpell.words": ["antd", "bojohome", "sharings", "unoptimized", "zustand"]
+	"cSpell.words": [
+		"antd",
+		"bojohome",
+		"Popconfirm",
+		"sharings",
+		"unoptimized",
+		"zustand"
+	]
 }

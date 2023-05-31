@@ -10,7 +10,7 @@ export const VideoItem = ({
 	onDeleteSharing,
 }: {
 	item: ISharing;
-	onDeleteSharing: (id: number) => void | undefined;
+	onDeleteSharing: ((id: number) => Promise<void>) | undefined;
 }) => {
 	return (
 		<div className="flex flex-col overflow-hidden rounded-md border border-gray-300 shadow md:h-[290px] md:flex-row">
@@ -28,14 +28,14 @@ export const VideoItem = ({
 				</p>
 				<p className="!my-0 font-bold">Description</p>
 				<p className="!my-0 line-clamp-3">{item.description}</p>
-				{onDeleteSharing && (
+				{!!onDeleteSharing && (
 					<div className="flex w-full items-end justify-end">
 						<Popconfirm
 							title="Delete the item"
 							description="Are you sure to delete this item?"
 							okText="Yes"
 							cancelText="No"
-							onConfirm={() => onDeleteSharing(item.id)}
+							onConfirm={() => onDeleteSharing?.(item.id!)}
 						>
 							<DeleteOutlined style={{ color: 'red' }} />
 						</Popconfirm>
