@@ -1,6 +1,7 @@
-import { baseURL } from './api';
+import { baseURL } from '../src/services/api';
 
 import axios from 'axios';
+import moment from 'moment';
 
 describe('API Testing', () => {
 	test('getListSharingSuccess', async () => {
@@ -22,9 +23,22 @@ describe('API Testing', () => {
 		// Check response.data has property "token" or not ?
 		expect(response.data).toHaveProperty('token');
 	});
+	test('registerFail', async () => {
+		try {
+			await axios.post(`${baseURL}/register`, {
+				email: 'tuanpha.it@gmail.com',
+				password: 'admin@123',
+			});
+		} catch (error: any) {
+			expect(error.response.status).toBe(500);
+			expect(error.response.data.error.message).toBe(
+				'duplicate key value violates unique constraint "uniqueEmail"'
+			);
+		}
+	});
 	test('loginFail', async () => {
 		try {
-			const response = await axios.post(`${baseURL}/login`, {
+			await axios.post(`${baseURL}/login`, {
 				email: 'tuanpha.it1@gmail.com',
 				password: 'admin@123',
 			});
@@ -35,18 +49,15 @@ describe('API Testing', () => {
 			);
 		}
 	});
-	test('registerFail', async () => {
+	test('registerSuccess', async () => {
 		try {
 			const response = await axios.post(`${baseURL}/register`, {
-				email: 'tuanpha.it@gmail.com',
+				email: `tuanpha.it${moment().format('x')}@gmail.com`,
 				password: 'admin@123',
 			});
-		} catch (error: any) {
-			expect(error.response.status).toBe(500);
-			expect(error.response.data.error.message).toBe(
-				'duplicate key value violates unique constraint "uniqueEmail"'
-			);
-		}
+			expect(response.status).toBe(200);
+			expect(response.data).toHaveProperty('token');
+		} catch (error: any) {}
 	});
 	test('getProfileSuccess', async () => {
 		try {
@@ -67,6 +78,7 @@ describe('API Testing', () => {
 	});
 	test('createSharingSuccess', async () => {
 		try {
+			// login get token
 			const res1 = await axios.post(`${baseURL}/login`, {
 				email: 'tuanpha.it@gmail.com',
 				password: 'admin@123',
@@ -75,6 +87,7 @@ describe('API Testing', () => {
 			const token = res1.data.token;
 			const url = 'https://www.youtube.com/watch?v=eUoqFu1sgRw';
 
+			// get url's metadata
 			const res2 = await axios.get(
 				`https://remitano-web-gamma.vercel.app/api/get-preview-link?link=${url}`
 			);
@@ -82,6 +95,7 @@ describe('API Testing', () => {
 			expect(res2.status).toBe(200);
 			expect(res2.data).toHaveProperty('title');
 
+			// create a sharing url
 			const res3 = await axios.post(
 				`${baseURL}/sharings`,
 				{
@@ -99,10 +113,12 @@ describe('API Testing', () => {
 			expect(res3.status).toBe(200);
 			expect(res3.data).toHaveProperty('id');
 
+			// delete newly created sharing
 			const res4 = await axios.delete(
 				`${baseURL}/sharings/${res2.data.id}`
 			);
-			expect(res3.status).toBe(res3);
+
+			expect(res4.status).toBe(204);
 		} catch (error: any) {}
 	});
 });
