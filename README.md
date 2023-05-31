@@ -32,23 +32,23 @@ To use the Video Sharing Community website, you need the following:
 
 ## Install
 
-Clone the repository:
+1. Clone the repository:
 
-    git clone https://github.com/hoanganhtuanbkdn/remitano-web.git
+`git clone https://github.com/hoanganhtuanbkdn/remitano-web.git`
 
-Navigate to the project directory:
+2. Navigate to the project directory:
 
-    cd remitano-web
+`cd remitano-web`
 
-Install project dependencies:
+3. Install project dependencies:
 
-    npm install
+`npm install`
 
-Start the development server
+4. Start the development server
 
-    npm run dev
+`npm run dev`
 
-Start the production server:
+5. Start the production server:
 
 `npm run build`
 
@@ -71,6 +71,7 @@ Receive real-time notifications whenever a new video is shared by another user.
 To deploy the Funny website using Docker, follow these steps:
 
 1. Install Docker on your system.
+
 2. Build the Docker image:
 
     `npm docker:build` or `docker build -t funny-web .`
@@ -95,29 +96,21 @@ The test suite will run, and you will see the test results and any failures or e
 
 The testing process helps maintain the quality and stability of the website. If you encounter any test failures, investigate the specific failure points and debug or fix the corresponding code.
 
-## Contributing
+### Start the local server
 
-If you'd like to contribute to the Funny website, please follow these guidelines:
+Clone the server repository
 
-Fork the repository to your GitHub account.
+`git clone https://github.com/hoanganhtuanbkdn/remitano-server`
 
-Create a new branch for your contribution:
+Navigate to the project directory:
 
-`git checkout -b feature/your-feature-name`
+`cd remitano-server`
 
-Make your desired changes or additions to the codebase.
+Start the server with Docker
 
-Test your changes thoroughly to ensure they don't introduce any regressions.
+`docker-compose build && docker-compose up -d` or `npm run docker:deploy`
 
-Commit your changes and push them to your forked repository.
-
-Create a pull request (PR) to the main repository, describing your changes and the problem they solve.
-
-The project maintainers will review your PR and provide feedback or request further changes if necessary. Your contributions are highly appreciated!
-
-## License
-
-The Video Sharing Community website is licensed under the MIT License. Refer to the LICENSE file for more information.
+Open your web browser and access the website at http://localhost:5000/explorer.
 
 ## Acknowledgements
 
@@ -128,6 +121,9 @@ ReactJs - JavaScript library for building user interfaces
 NextJs - The React Framework for the Web
 
 Node.js - JavaScript runtime
+
+[Loopback](https://loopback.io/) - A highly extensible Node.js and TypeScript framework
+for building APIs and microservices.
 
 Socket.io - Real-time communication library
 
