@@ -57,6 +57,10 @@ const createServiceApi = () => {
 		return await api.post<ISharing>('/sharings', data);
 	};
 
+	const deleteSharingById = async (id: number) => {
+		return await api.delete('/sharings/' + id);
+	};
+
 	return {
 		api,
 		login,
@@ -64,6 +68,7 @@ const createServiceApi = () => {
 		getUserMe,
 		getSharing,
 		createSharing,
+		deleteSharingById,
 	};
 };
 

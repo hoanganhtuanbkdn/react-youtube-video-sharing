@@ -1,50 +1,95 @@
-import VideoPlayer from '@/components/ui/VideoPlayer';
-import { useLoadMoreOnScroll } from '@/hooks';
+import VideoItem from '@/components/view/Home/VideoItem';
+import { useLoadMoreOnScroll, useSessionStorage } from '@/hooks';
 import { ISharing, ServiceApi } from '@/services';
+import { ProfileSelectors } from '@/store';
+import { insertObjectIf, isSuccess } from '@/utils';
+import { DownOutlined } from '@ant-design/icons';
+import { useCallback } from 'react';
+import { useSelector } from 'react-redux';
+
+import { Button, Dropdown, MenuProps, message, Space } from 'antd';
+
+const items: MenuProps['items'] = [
+	{
+		label: 'Latest Video',
+		key: '0',
+		// icon: <UserOutlined />,
+	},
+	{
+		label: 'My Video',
+		key: '1',
+		// icon: <UserOutlined />,
+	},
+];
 
 const Home = () => {
-	const { data, loading } = useLoadMoreOnScroll<ISharing>(
+	const [filterType, setFilterType] = useSessionStorage('FILTER', '0');
+	const profile = useSelector(ProfileSelectors.selectProfile);
+	const { data, loading, refetch } = useLoadMoreOnScroll<ISharing>(
 		(filter) =>
 			ServiceApi.getSharing({
 				...filter,
 				include: [{ relation: 'user' }],
 				order: ['id DESC'],
+				where: {
+					...insertObjectIf(filterType === '1' && profile?.id, {
+						userId: profile.id,
+					}),
+				},
 			}),
 		{
 			wrapListId: 'list-sharing',
 			key: 'getCommunityPosts',
+			q: filterType + profile?.id,
 		}
 	);
 
+	const handleMenuClick: MenuProps['onClick'] = (e) => {
+		setFilterType(e.key);
+		refetch();
+	};
+
+	const menuProps = {
+		items,
+		onClick: handleMenuClick,
+	};
+
+	const onDeleteSharing = useCallback(async (sharingId: number) => {
+		const res = await ServiceApi.deleteSharingById(sharingId);
+		if (isSuccess(res)) {
+			message.success('Delete item successful');
+			refetch();
+		}
+	}, []);
 	return (
 		<main
 			className={'col my-3 gap-4 px-3 xl:my-10 xl:px-40'}
 			id="list-sharing"
 			data-testid="list-sharing"
 		>
-			{data?.map((item: ISharing) => (
-				<div
-					key={item.id}
-					className="flex flex-col overflow-hidden rounded-md border border-gray-300 shadow md:h-[290px] md:flex-row"
-				>
-					<div className="relative flex h-[200px] w-full md:h-full md:w-[440px]">
-						<VideoPlayer
-							videoUrl={item.videoUrl}
-							cover={item.cover || ''}
-							videoKey={item.id!}
-						/>
-					</div>
-					<div className="col flex-1 items-start justify-start gap-1 px-5 py-3 text-xs md:gap-3 md:text-base">
-						<h1 className="!my-0 text-xl md:text-2xl">
-							{item.title}
-						</h1>
-						<p className="!my-0">
-							<strong>Share by:</strong> {item.user?.email}
-						</p>
-						<p className="!my-0 font-bold">Description</p>
-						<p className="!my-0 line-clamp-3">{item.description}</p>
-					</div>
+			{profile?.id && (
+				<div className="flex w-full items-end justify-end">
+					<Dropdown menu={menuProps}>
+						<Button>
+							<Space>
+								{filterType === '1'
+									? 'My Video'
+									: 'Latest Video'}
+								<DownOutlined />
+							</Space>
+						</Button>
+					</Dropdown>
 				</div>
+			)}
+
+			{data?.map((item: ISharing) => (
+				<VideoItem
+					item={item}
+					key={item.id}
+					onDeleteSharing={
+						filterType === '0' ? undefined : onDeleteSharing
+					}
+				/>
 			))}
 		</main>
 	);
