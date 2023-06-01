@@ -17,10 +17,10 @@ export default function SharePage() {
 	const onFinish = async (values: { videoUrl: string }) => {
 		setLoading(true);
 
-		if (!isYouTubeLink(values.videoUrl)) return 'Invalid YouTube link';
-		const metadata = await getMetadataLink(values.videoUrl);
-
 		try {
+			if (!isYouTubeLink(values.videoUrl)) return 'Invalid YouTube link';
+			const metadata = await getMetadataLink(values.videoUrl);
+
 			const res = await ServiceApi.createSharing({
 				videoUrl: values.videoUrl,
 				title: metadata?.title,
