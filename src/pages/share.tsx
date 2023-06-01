@@ -18,22 +18,25 @@ export default function SharePage() {
 		setLoading(true);
 
 		try {
-			if (!isYouTubeLink(values.videoUrl)) return 'Invalid YouTube link';
-			const metadata = await getMetadataLink(values.videoUrl);
+			if (!isYouTubeLink(values.videoUrl)) {
+				message.error('Invalid YouTube link');
+			} else {
+				const metadata = await getMetadataLink(values.videoUrl);
 
-			const res = await ServiceApi.createSharing({
-				videoUrl: values.videoUrl,
-				title: metadata?.title,
-				description: metadata?.description,
-				cover: metadata?.images?.[0],
-			});
-			if (isSuccess(res)) {
-				socket.emit(
-					'chat message',
-					JSON.stringify({ ...res?.data, email: profile.email })
-				);
-				message.success('Share movie successful');
-				router.replace('/');
+				const res = await ServiceApi.createSharing({
+					videoUrl: values.videoUrl,
+					title: metadata?.title,
+					description: metadata?.description,
+					cover: metadata?.images?.[0],
+				});
+				if (isSuccess(res)) {
+					socket.emit(
+						'chat message',
+						JSON.stringify({ ...res?.data, email: profile.email })
+					);
+					message.success('Share movie successful');
+					router.replace('/');
+				}
 			}
 		} catch (e) {
 			message.error('Invalid URL');
