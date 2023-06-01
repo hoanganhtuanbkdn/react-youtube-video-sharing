@@ -20,7 +20,7 @@ Object.defineProperty(window, 'matchMedia', {
 describe('rendering and submitting share form', () => {
 	test('renders ShareForm correctly', () => {
 		const handleClick = jest.fn((values: any) => {
-			console.log('values', values);
+			// console.log('values', values);
 		});
 		const { container } = render(
 			<ShareForm onFinish={handleClick} loading={false} />

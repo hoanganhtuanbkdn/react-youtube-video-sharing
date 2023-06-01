@@ -32,9 +32,7 @@ const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 					router.replace('/');
 				},
 			});
-		} catch (e) {
-			console.log(3, e);
-		}
+		} catch (e) {}
 	};
 
 	useEffect(() => {
@@ -51,7 +49,7 @@ const GlobalLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 		socket.on('connect', onConnect);
 		socket.on('disconnect', onDisconnect);
 		socket.on('some room event', function (msg) {
-			console.log('msg', msg);
+			// console.log('msg', msg);
 		});
 
 		return () => {

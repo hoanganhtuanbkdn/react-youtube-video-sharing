@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Button, Form, Input } from 'antd';
 
-export default function ShareForm({
+const ShareForm = ({
 	onFinish,
 	loading,
 }: {
 	onFinish: (values: any) => void;
 	loading: boolean;
-}) {
+}) => {
 	return (
 		<Form
 			name="basic"
@@ -48,4 +48,6 @@ export default function ShareForm({
 			</div>
 		</Form>
 	);
-}
+};
+
+export default memo(ShareForm);

@@ -13,6 +13,7 @@ export default function SharePage() {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
 	const profile = useSelector(ProfileSelectors.selectProfile);
+
 	const onFinish = async (values: { videoUrl: string }) => {
 		setLoading(true);
 

@@ -16,9 +16,7 @@ Server Api: https://remitano-api.code4change.dev/explorer
 
 -   User profile management
 
--   Video sharing management
-
--   Videos sharing community
+-   Video sharing and viewing
 
 -   Real-time notifications for new video uploads
 

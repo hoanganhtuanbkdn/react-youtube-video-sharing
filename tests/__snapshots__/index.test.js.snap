@@ -7,3 +7,11 @@ exports[`Home renders Home Page 1`] = `
   id="list-sharing"
 />
 `;
+
+exports[`Home renders Home Page 2`] = `
+<main
+  class="col my-3 gap-4 px-3 xl:my-10 xl:px-40"
+  data-testid="list-sharing"
+  id="list-sharing"
+/>
+`;

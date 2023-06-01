@@ -13,18 +13,12 @@ const AuthModal: React.FC<{}> = () => {
 	};
 
 	const onFinish = (values: any) => {
-		console.log('Success:', values);
-
 		if (authModalType === 'LOGIN') {
 			GlobalDispatch(AuthActions.loginRequest(values));
 			return;
 		}
 
 		GlobalDispatch(AuthActions.registerRequest(values));
-	};
-
-	const onFinishFailed = (errorInfo: any) => {
-		console.log('Failed:', errorInfo);
 	};
 
 	const isLogin = authModalType === 'LOGIN';
@@ -41,7 +35,6 @@ const AuthModal: React.FC<{}> = () => {
 				wrapperCol={{ span: 16 }}
 				initialValues={{ email: '', password: '' }}
 				onFinish={onFinish}
-				onFinishFailed={onFinishFailed}
 				autoComplete="new-password"
 			>
 				<Form.Item

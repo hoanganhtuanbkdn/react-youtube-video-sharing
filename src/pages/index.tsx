@@ -13,12 +13,10 @@ const items: MenuProps['items'] = [
 	{
 		label: 'Latest Video',
 		key: '0',
-		// icon: <UserOutlined />,
 	},
 	{
 		label: 'My Video',
 		key: '1',
-		// icon: <UserOutlined />,
 	},
 ];
 
@@ -44,10 +42,10 @@ const Home = () => {
 		}
 	);
 
-	const handleMenuClick: MenuProps['onClick'] = (e) => {
+	const handleMenuClick = useCallback((e: any) => {
 		setFilterType(e.key);
 		refetch();
-	};
+	}, []);
 
 	const menuProps = {
 		items,
