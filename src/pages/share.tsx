@@ -17,6 +17,7 @@ export default function SharePage() {
 	const onFinish = async (values: { videoUrl: string }) => {
 		setLoading(true);
 
+		if (!isYouTubeLink(values.videoUrl)) return 'Invalid YouTube link';
 		const metadata = await getMetadataLink(values.videoUrl);
 
 		try {
@@ -35,9 +36,19 @@ export default function SharePage() {
 				router.replace('/');
 			}
 		} catch (e) {
+			message.error('Invalid URL');
 		} finally {
 			setLoading(false);
 		}
+	};
+
+	const isYouTubeLink = (url: string) => {
+		// Regex pattern để kiểm tra định dạng liên kết YouTube
+		var youtubePattern =
+			/^(http(s)?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})$/;
+
+		// Kiểm tra xem URL có phù hợp với pattern hay không
+		return youtubePattern.test(url);
 	};
 
 	const getMetadataLink = async (link: string) => {
