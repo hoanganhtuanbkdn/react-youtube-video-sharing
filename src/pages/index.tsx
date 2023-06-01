@@ -85,9 +85,9 @@ const Home = () => {
 					item={item}
 					key={item.id}
 					onDeleteSharing={
-						filterType === '0' || profile?.roles?.[0] === 'admin'
-							? undefined
-							: onDeleteSharing
+						filterType === '1' || profile?.roles?.[0] === 'admin'
+							? onDeleteSharing
+							: undefined
 					}
 				/>
 			))}
