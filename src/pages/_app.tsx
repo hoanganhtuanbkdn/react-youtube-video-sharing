@@ -2,7 +2,9 @@ import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import GlobalLayout from '@/components/ui/GlobalLayout';
 import { persistor, store } from '@/store';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css';
 import { NextPage } from 'next';
 // include styles from the ui package
@@ -41,6 +43,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 			<ErrorBoundary>
 				<Provider store={store}>
 					<PersistGate loading={null} persistor={persistor}>
+						<ToastContainer />
 						<GlobalLayout>
 							<Component {...pageProps} />
 						</GlobalLayout>

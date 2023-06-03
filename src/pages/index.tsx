@@ -79,7 +79,6 @@ const Home = () => {
 					</Dropdown>
 				</div>
 			)}
-
 			{data?.map((item: ISharing) => (
 				<VideoItem
 					item={item}

@@ -1,5 +1,5 @@
 import { defaultFilter } from './api.constant';
-import { ISharing, IUser } from './api.type';
+import { ICreateRoomParams, ISharing, IUser } from './api.type';
 import { isSuccess } from './api.util';
 import { Filter } from './loopback.type';
 
@@ -61,6 +61,15 @@ const createServiceApi = () => {
 		return await api.delete('/sharings/' + id);
 	};
 
+	//room
+	const createRoom = async (params: ICreateRoomParams) => {
+		return await api.post('/rooms/', params);
+	};
+
+	// const getRooms = async () => {
+	// 	return await api.get('/rooms/');
+	// };
+
 	return {
 		api,
 		login,
@@ -69,6 +78,10 @@ const createServiceApi = () => {
 		getSharing,
 		createSharing,
 		deleteSharingById,
+
+		//room
+		createRoom,
+		// getRooms,
 	};
 };
 
