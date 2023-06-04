@@ -1,9 +1,11 @@
+import { showToastError, showToastSuccess } from '@/config/toast.config';
 import { ICreateRoomParams, ServiceApi } from '@/services';
 import { PlusOutlined } from '@ant-design/icons';
-import React, { useCallback, useState } from 'react';
-import { toast } from 'react-toastify';
+import React, { memo, useCallback, useState } from 'react';
 
-// import './style.module.css';
+import { refetchGetRooms } from './RoomList';
+
+import './style.module.css';
 import { Button, Col, Drawer, Form, Input, Row, Select } from 'antd';
 
 const { Option } = Select;
@@ -12,8 +14,6 @@ const { TextArea } = Input;
 const CreateRoomForm: React.FC = () => {
 	const [open, setOpen] = useState(false);
 	const [form] = Form.useForm();
-
-	const notify = () => toast.success('Tạo thành công!');
 
 	const showDrawer = useCallback(() => {
 		setOpen(true);
@@ -28,8 +28,11 @@ const CreateRoomForm: React.FC = () => {
 			const res = await ServiceApi.createRoom(values);
 			if (res?.ok) {
 				form.resetFields();
-				notify();
+				showToastSuccess('Tạo thành công!');
+				refetchGetRooms();
+				return;
 			}
+			showToastError('Tạo thất bại!');
 		} catch (error) {
 			alert(error);
 		}
@@ -120,4 +123,4 @@ const CreateRoomForm: React.FC = () => {
 	);
 };
 
-export default CreateRoomForm;
+export default memo(CreateRoomForm);

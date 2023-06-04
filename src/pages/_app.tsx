@@ -1,6 +1,8 @@
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import GlobalLayout from '@/components/ui/GlobalLayout';
 import { persistor, store } from '@/store';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 
@@ -36,18 +38,22 @@ export type NextPageWithLayout<T = any> = NextPage<T> & {
 export type AppPropsWithLayout = AppProps & {
 	Component: NextPageWithLayout;
 };
+const queryClient = new QueryClient();
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 	return (
 		<>
 			<ErrorBoundary>
 				<Provider store={store}>
-					<PersistGate loading={null} persistor={persistor}>
-						<ToastContainer />
-						<GlobalLayout>
-							<Component {...pageProps} />
-						</GlobalLayout>
-					</PersistGate>
+					<QueryClientProvider client={queryClient}>
+						<ReactQueryDevtools initialIsOpen={false} />
+						<PersistGate loading={null} persistor={persistor}>
+							<ToastContainer />
+							<GlobalLayout>
+								<Component {...pageProps} />
+							</GlobalLayout>
+						</PersistGate>
+					</QueryClientProvider>
 				</Provider>
 			</ErrorBoundary>
 

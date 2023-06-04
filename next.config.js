@@ -5,7 +5,6 @@ const nextConfig = {
 		domains: ['i.ytimg.com'],
 	},
 	output: 'standalone',
-	transpilePackages: ['react-hook-mousetrap'],
 };
 
 module.exports = nextConfig;

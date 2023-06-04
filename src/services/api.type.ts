@@ -24,3 +24,11 @@ export interface ICreateRoomParams {
 	createdAt: string;
 	ownerId?: number;
 }
+
+export interface IGetRooms {
+	filter: {
+		offset: number;
+		limit: number;
+		order: string;
+	};
+}
