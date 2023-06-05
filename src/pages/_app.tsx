@@ -4,7 +4,6 @@ import { persistor, store } from '@/store';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/globals.css';
@@ -48,7 +47,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 					<QueryClientProvider client={queryClient}>
 						<ReactQueryDevtools initialIsOpen={false} />
 						<PersistGate loading={null} persistor={persistor}>
-							<ToastContainer />
 							<GlobalLayout>
 								<Component {...pageProps} />
 							</GlobalLayout>

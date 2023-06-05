@@ -1,12 +1,9 @@
-import { showToastError, showToastSuccess } from '@/config/toast.config';
 import { ICreateRoomParams, ServiceApi } from '@/services';
 import { PlusOutlined } from '@ant-design/icons';
 import React, { memo, useCallback, useState } from 'react';
+import { useQueryClient } from 'react-query';
 
-import { refetchGetRooms } from './RoomList';
-
-import './style.module.css';
-import { Button, Col, Drawer, Form, Input, Row, Select } from 'antd';
+import { Button, Col, Drawer, Form, Input, message, Row, Select } from 'antd';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -14,6 +11,7 @@ const { TextArea } = Input;
 const CreateRoomForm: React.FC = () => {
 	const [open, setOpen] = useState(false);
 	const [form] = Form.useForm();
+	const queryClient = useQueryClient();
 
 	const showDrawer = useCallback(() => {
 		setOpen(true);
@@ -28,11 +26,11 @@ const CreateRoomForm: React.FC = () => {
 			const res = await ServiceApi.createRoom(values);
 			if (res?.ok) {
 				form.resetFields();
-				showToastSuccess('Tạo thành công!');
-				refetchGetRooms();
+				message.success('Tạo thành công!');
+				queryClient.refetchQueries('rooms');
 				return;
 			}
-			showToastError('Tạo thất bại!');
+			message.error('Tạo thất bại!');
 		} catch (error) {
 			alert(error);
 		}
@@ -51,7 +49,7 @@ const CreateRoomForm: React.FC = () => {
 				</Button>
 			</div>
 			<Drawer
-				title="Create a new account"
+				title="Create new room"
 				width={720}
 				onClose={onClose}
 				open={open}

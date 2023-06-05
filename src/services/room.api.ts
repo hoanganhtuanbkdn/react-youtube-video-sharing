@@ -1,7 +1,9 @@
 import { IRooms } from '@/components/view/RoomManager/types';
-import { showToastError } from '@/config/toast.config';
 
 import { ServiceApi } from './api';
+import { isSuccess } from './api.util';
+
+import { message } from 'antd';
 
 export const getRooms = async (): Promise<IRooms> => {
 	try {
@@ -12,11 +14,31 @@ export const getRooms = async (): Promise<IRooms> => {
 				order: 'id DESC',
 			},
 		});
-		if (res?.ok) return res?.data;
-		showToastError('get room failed');
+		if (isSuccess(res)) return res?.data;
+		message.error('get room failed');
 		return [];
 	} catch (error) {
-		showToastError();
+		message.error('get room failed');
 		return [];
+	}
+};
+
+export const deleteRoom = async ({
+	id,
+	onSuccess,
+}: {
+	id: number;
+	onSuccess?: () => void;
+}) => {
+	try {
+		const res: any = await ServiceApi.deleteRoom(id);
+		if (isSuccess(res)) {
+			message.success('xoá thành công');
+			onSuccess?.();
+			return;
+		}
+		message.error('Xoá thất bại');
+	} catch (error) {
+		message.error('Xoá thất bại');
 	}
 };

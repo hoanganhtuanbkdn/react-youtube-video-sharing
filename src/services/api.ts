@@ -69,6 +69,10 @@ const createServiceApi = () => {
 		return await api.get('/rooms', params);
 	};
 
+	const deleteRoom = async (id: number) => {
+		return await api.get('/rooms/' + id);
+	};
+
 	return {
 		api,
 		login,
@@ -81,6 +85,7 @@ const createServiceApi = () => {
 		//room
 		createRoom,
 		getRooms,
+		deleteRoom,
 	};
 };
 
