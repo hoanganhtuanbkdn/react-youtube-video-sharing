@@ -16,3 +16,19 @@ export interface ISharing {
 	cover?: string;
 	user?: IUser;
 }
+
+export interface ICreateRoomParams {
+	name?: string;
+	description?: string;
+	acceptRole?: number;
+	createdAt: string;
+	ownerId?: number;
+}
+
+export interface IGetRooms {
+	filter: {
+		offset: number;
+		limit: number;
+		order: string;
+	};
+}

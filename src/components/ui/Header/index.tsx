@@ -1,11 +1,13 @@
 import SmartLink from '@/components/SmartLink';
 import { ROUTERS } from '@/constants';
+import { IUser } from '@/services';
 import { AuthActions, GlobalDispatch, ProfileSelectors } from '@/store';
 import { classNames } from '@/utils';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 import AuthModal from '../AuthModal';
+import { ProfileButton } from './_components/ProfileButton';
 
 import { Button } from 'antd';
 import { useRouter } from 'next/router';
@@ -43,7 +45,8 @@ export default function Header({
 					</SmartLink>
 					{profile?.id || isProfile ? (
 						<div className="col md:row text-xs md:gap-4 md:text-base">
-							<p>Welcome {[profile?.email]}</p>
+							<ProfileButton profile={profile as IUser} />
+
 							<div className="row nd:gap-4 gap-2">
 								<Button
 									type="primary"
