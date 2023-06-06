@@ -9,8 +9,10 @@ import { IRoom } from './types';
 import { Empty } from 'antd';
 import { isNilOrEmpty } from 'ramda-adjunct';
 
-interface IRoomListProps {}
-const RoomList = ({}: IRoomListProps) => {
+interface IRoomListProps {
+	showDrawer: (detail?: IRoom) => void;
+}
+const RoomList = ({ showDrawer }: IRoomListProps) => {
 	const { data, isFetching, refetch } = useQuery('rooms', getRooms);
 	const onDelete = useCallback((id?: number | string) => {
 		deleteRoom({
@@ -20,6 +22,11 @@ const RoomList = ({}: IRoomListProps) => {
 			},
 		});
 	}, []);
+
+	const onEditRoom = useCallback((detail: IRoom) => {
+		showDrawer(detail);
+	}, []);
+
 	if (isFetching && isNilOrEmpty(data))
 		return (
 			<Empty
@@ -53,7 +60,10 @@ const RoomList = ({}: IRoomListProps) => {
 									<CloseCircleOutlined className="w-[12px]" />
 								</Popconfirm>
 							</div>
-							<EditOutlined className="w-[12px]" />
+							<EditOutlined
+								className="w-[12px]"
+								onClick={() => onEditRoom(v)}
+							/>
 						</div>
 					</div>
 				);

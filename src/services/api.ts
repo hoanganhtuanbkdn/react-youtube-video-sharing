@@ -68,9 +68,11 @@ const createServiceApi = () => {
 	const getRooms = async (params: IGetRooms) => {
 		return await api.get('/rooms', params);
 	};
-
 	const deleteRoom = async (id: number) => {
 		return await api.get('/rooms/' + id);
+	};
+	const updateRoom = async (id: number, params: ICreateRoomParams) => {
+		return await api.patch('/rooms/' + id, params);
 	};
 
 	return {
@@ -86,6 +88,7 @@ const createServiceApi = () => {
 		createRoom,
 		getRooms,
 		deleteRoom,
+		updateRoom,
 	};
 };
 
