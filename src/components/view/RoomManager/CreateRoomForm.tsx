@@ -1,40 +1,63 @@
 import { ICreateRoomParams, ServiceApi } from '@/services';
+import { isSuccess } from '@/utils';
 import { PlusOutlined } from '@ant-design/icons';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { useQueryClient } from 'react-query';
 
+import { IRoom } from './types';
+
 import { Button, Col, Drawer, Form, Input, message, Row, Select } from 'antd';
+import { isNotNilOrEmpty } from 'ramda-adjunct';
 
 const { Option } = Select;
 const { TextArea } = Input;
 
-const CreateRoomForm: React.FC = () => {
-	const [open, setOpen] = useState(false);
-	const [form] = Form.useForm();
+const CreateRoomForm = ({
+	form,
+	showDrawer,
+	onClose,
+	isOpen,
+	detail,
+}: {
+	form: any;
+	showDrawer: (detail: IRoom) => void;
+	onClose: () => void;
+	isOpen: boolean;
+	detail: IRoom;
+}) => {
 	const queryClient = useQueryClient();
-
-	const showDrawer = useCallback(() => {
-		setOpen(true);
-	}, []);
-	const onClose = useCallback(() => {
-		setOpen(false);
-		form.resetFields();
-	}, []);
-
-	const onFinish = useCallback(async (values: ICreateRoomParams) => {
-		try {
-			const res = await ServiceApi.createRoom(values);
-			if (res?.ok) {
-				form.resetFields();
-				message.success('Tạo thành công!');
-				queryClient.refetchQueries('rooms');
-				return;
+	const onFinish = useCallback(
+		async (values: ICreateRoomParams) => {
+			try {
+				if (isNotNilOrEmpty(detail)) {
+					const res = await ServiceApi.updateRoom(
+						Number(detail?.id),
+						values
+					);
+					if (isSuccess(res)) {
+						form.resetFields();
+						message.success('Sửa thành công!');
+						queryClient.refetchQueries('rooms');
+						onClose();
+						return;
+					} else {
+						message.error('Sửa thất bại!');
+					}
+				}
+				const res = await ServiceApi.createRoom(values);
+				if (isSuccess(res)) {
+					form.resetFields();
+					message.success('Tạo thành công!');
+					queryClient.refetchQueries('rooms');
+					return;
+				}
+				message.error('Tạo thất bại!');
+			} catch (error) {
+				alert(error);
 			}
-			message.error('Tạo thất bại!');
-		} catch (error) {
-			alert(error);
-		}
-	}, []);
+		},
+		[detail]
+	);
 
 	return (
 		<>
@@ -42,7 +65,7 @@ const CreateRoomForm: React.FC = () => {
 				<div className="font-bold">Quản lý phòng nhạc</div>
 				<Button
 					type="primary"
-					onClick={showDrawer}
+					onClick={() => showDrawer({})}
 					icon={<PlusOutlined />}
 				>
 					Tạo phòng nhạc mới
@@ -52,15 +75,10 @@ const CreateRoomForm: React.FC = () => {
 				title="Create new room"
 				width={720}
 				onClose={onClose}
-				open={open}
+				open={isOpen}
 				bodyStyle={{ paddingBottom: 80 }}
 			>
-				<Form
-					form={form}
-					onFinish={onFinish}
-					layout="vertical"
-					// initialValues={{ name: 'namename' }}
-				>
+				<Form form={form} onFinish={onFinish} layout="vertical">
 					<Row gutter={16}>
 						<Col span={12}>
 							<Form.Item
@@ -112,7 +130,7 @@ const CreateRoomForm: React.FC = () => {
 					<div className="flex gap-4">
 						<Button onClick={onClose}>Huỷ</Button>
 						<Button type="primary" htmlType="submit">
-							Tạo
+							{detail?.id ? 'Lưu chỉnh sửa' : 'Tạo'}
 						</Button>
 					</div>
 				</Form>
